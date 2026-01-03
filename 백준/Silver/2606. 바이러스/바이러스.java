@@ -1,36 +1,28 @@
-import java.util.*;
-
+import java.util.Arrays;
+import java.util.Scanner;
 public class Main {
-    public static int m, n;
-    public static int[][] node;
-    public static boolean[] visited;
-    public static int cnt;
-
-    public static void main(String args[]) {
+    static int answer = 0;
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-
-        m = sc.nextInt();
-        n = sc.nextInt();
-
-        node = new int[m+1][m+1];
-        visited = new boolean[m+1];
-
+        int m = sc.nextInt();
+        int n = sc.nextInt();
+        int[][] map = new int[m+1][m+1];
+        boolean[] visited = new boolean[m+1];
         for(int i=0; i<n; i++) {
-            int m = sc.nextInt();
-            int n = sc.nextInt();
-            node[m][n] = node[n][m] = 1;
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            map[x][y] = 1;
+            map[y][x] = 1;
         }
-        visited[1] = true;
-        dfs(node, visited, 1);
-        System.out.println(cnt);
+        dfs(visited, map, 1);
+        System.out.println(answer);
     }
-
-    public static void dfs(int[][] node, boolean[] visited, int begin) {
-        for(int i=0; i<node.length; i++) {
-            if(!visited[i] && node[begin][i] == 1) {
-                visited[i] = true;
-                cnt++;
-                dfs(node, visited, i);
+    public static void dfs(boolean[] visited, int[][] map, int start) {
+        visited[start] = true;
+        for(int i=1; i<map.length; i++) {
+            if(!visited[i] && map[start][i] == 1) {
+                answer++;
+                dfs(visited, map, i);
             }
         }
     }
