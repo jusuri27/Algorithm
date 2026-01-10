@@ -1,31 +1,27 @@
-import java.util.Arrays;
+import java.util.*;
 
 class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
-        int answer = 0;
-        answer = n - lost.length;
-        
+        int answer = n - lost.length;
         Arrays.sort(lost);
         Arrays.sort(reserve);
         
-        for(int i=0; i<lost.length; i++) {
-            for(int j=0; j<reserve.length; j++) {
-                if(lost[i] == reserve[j]) {
+        for(int i=0; i<reserve.length; i++) {
+            for(int j=0; j<lost.length; j++) {
+                if(lost[j] == reserve[i]) {
+                    lost[j] = -1;
+                    reserve[i] = -1;
                     answer++;
-                    lost[i] = -1;
-                    reserve[j] = -1;
-                    break;
                 }
             }
         }
         
-        for(int i=0; i<lost.length; i++) {
-            for(int j=0; j<reserve.length; j++) {
-                if(lost[i] - 1 == reserve[j] || lost[i] + 1 == reserve[j]) {
+        for(int i=0; i<reserve.length; i++) {
+            for(int j=0; j<lost.length; j++) {
+                if(lost[j] == reserve[i]-1 || lost[j] == reserve[i]+1) {
+                    lost[j] = -1;
+                    reserve[i] = -1;
                     answer++;
-                    lost[i] = -1;
-                    reserve[j] = -1;
-                    break;
                 }
             }
         }
