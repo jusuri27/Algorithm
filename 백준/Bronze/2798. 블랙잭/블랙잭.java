@@ -3,25 +3,29 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int card = sc.nextInt();
-        int value = sc.nextInt();
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int[] cards = new int[n];
 
-        int[] arr = new int[card];
-        for(int i=0; i<card; i++) {
-            arr[i] = sc.nextInt();
+        for(int i=0; i<n; i++) {
+            cards[i] = sc.nextInt();
         }
 
-        int max = 0;
-        for(int i=0; i<arr.length; i++) {
-            for (int j = i+1; j < arr.length; j++) {
-                for (int k = j+1; k < arr.length; k++) {
-                    int sum = arr[i] + arr[j] + arr[k];
-                    if(sum > max && value >= sum) {
-                        max = sum;
+        int highNum = 0;
+        for(int i = 0; i < cards.length; i++) {
+            for(int j = i+1; j <cards.length; j++) {
+                for(int k=j+1; k<cards.length; k++) {
+                    int sum = cards[i] + cards[j] + cards[k];
+                    if(sum == m) {
+                        System.out.println(sum);
+                        return;
+                    }
+                    if(sum < m) {
+                        highNum = Math.max(highNum, sum);
                     }
                 }
             }
         }
-        System.out.println(max);
+        System.out.println(highNum);
     }
 }
