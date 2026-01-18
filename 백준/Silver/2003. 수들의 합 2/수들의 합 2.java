@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -6,30 +5,27 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int m = sc.nextInt();
+        int[] arr = new int[n+1];
 
-        int[] numbers = new int[n+1];
         for(int i=0; i<n; i++) {
-            numbers[i] = sc.nextInt();
+            arr[i] = sc.nextInt();
         }
 
         int low = 0;
         int high = 0;
-        int sum = numbers[low];
-        int count = 0;
-
-        while(true) {
-            if(high >= n) {
-                break;
-            }
-            if(sum > m) {
-                sum -= numbers[low++];
+        int sum = arr[0];
+        int answer = 0;
+        
+        while(high < n) {
+            if(sum < m) {
+                sum += arr[++high];
             } else if(sum == m) {
-                sum += numbers[++high];
-                count++;
-            } else {
-                sum += numbers[++high];
+                sum += arr[++high];
+                answer++;
+            } else if(sum > m) {
+                sum -= arr[low++];
             }
         }
-        System.out.println(count);
+        System.out.println(answer);
     }
 }
