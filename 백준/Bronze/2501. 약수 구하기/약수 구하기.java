@@ -6,16 +6,17 @@ public class Main {
         int n = sc.nextInt();
         int k = sc.nextInt();
 
-        int count = 0;
+        int cnt = 0;
         for(int i=1; i<=n; i++) {
             if(n % i == 0) {
-                count++;
+                cnt++;
             }
-            if(count == k) {
+            if(cnt == k) {
                 System.out.println(i);
                 return;
             }
         }
+
         System.out.println(0);
     }
 }
