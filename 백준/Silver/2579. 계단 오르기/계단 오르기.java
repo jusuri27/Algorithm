@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -7,7 +8,7 @@ public class Main {
         int[] arr = new int[n+1];
         int[] dp = new int[n+1];
 
-        for(int i=1; i<=n; i++) {
+        for(int i=1; i<arr.length; i++) {
             arr[i] = sc.nextInt();
         }
 
@@ -15,11 +16,10 @@ public class Main {
         if(n >= 2) {
             dp[2] = arr[1] + arr[2];
         }
-
-        for(int i=3; i<=n; i++) {
-            dp[i] = Math.max(dp[i-2], (dp[i-3] + arr[i-1])) + arr[i];
+        
+        for(int i=3; i<arr.length; i++) {
+            dp[i] = Math.max(dp[i-2], dp[i-3] + arr[i-1]) + arr[i];
         }
-
         System.out.println(dp[n]);
     }
 }
