@@ -6,15 +6,16 @@ public class Main {
         int n = sc.nextInt();
         int[] arr = new int[n];
         int[] dp = new int[n];
-        for(int i=0; i<arr.length; i++) {
+        for(int i=0; i<n; i++) {
             arr[i] = sc.nextInt();
         }
-
-        int high = arr[0];
         dp[0] = arr[0];
+        int high = dp[0];
         for(int i=1; i<arr.length; i++) {
-            dp[i] = Math.max(dp[i-1] + arr[i], arr[i]);
-            high = Math.max(high, dp[i]);
+            dp[i] = Math.max(dp[i-1]+arr[i], arr[i]);
+            if(high < dp[i]) {
+                high = dp[i];
+            }
         }
         System.out.println(high);
     }
