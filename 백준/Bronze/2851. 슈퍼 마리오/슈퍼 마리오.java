@@ -3,20 +3,17 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = 10;
-        int answer = 0;
-        int[] arr = new int[n];
-        for(int i=0; i<n; i++) {
-            arr[i] = sc.nextInt();
-        }
-
-        int value = 100;
+        int[] arr = new int[10];
         int sum = 0;
+        int target = 100;
         int min = Integer.MAX_VALUE;
+        int answer = 0;
         for(int i=0; i<arr.length; i++) {
+            arr[i] = sc.nextInt();
             sum += arr[i];
-            if(min >= Math.abs(value - sum)) {
-                min = value - sum;
+            int value = Math.abs(target - sum);
+            if(value <= min) {
+                min = value;
                 answer = sum;
             }
         }
