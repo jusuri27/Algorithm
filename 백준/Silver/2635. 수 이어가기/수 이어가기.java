@@ -5,31 +5,37 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        ArrayList<Integer> maxList = new ArrayList<>();
+        ArrayList<Integer> arr = new ArrayList<>();
 
-        for(int i=1; i<=n; i++) {
-            ArrayList<Integer> arr = new ArrayList<Integer>();
-            int idx = 0;
-            arr.add(n);
-            arr.add(i);
-
+        int count = 0;
+        while(true) {
+            count++;
+            if(count > n) {
+                break;
+            }
+            int temp = count;
+            int idx = 1;
+            ArrayList<Integer> tempArr = new ArrayList<>();
+            tempArr.add(n);
+            tempArr.add(count);
             while(true) {
-                int nextValue = arr.get(idx) - arr.get(idx + 1);
-                if(nextValue < 0) {
-                    break;
-                } else {
-                    arr.add(nextValue);
+                int value = tempArr.get(idx - 1) - tempArr.get(idx);
+                if(value >= 0) {
                     idx++;
+                    temp = value;
+                    tempArr.add(temp);
+                    continue;
                 }
+                break;
             }
 
-            if(arr.size() > maxList.size()) {
-                maxList = arr;
+            if(arr.size() < tempArr.size()) {
+                arr = tempArr;
             }
         }
-        System.out.println(maxList.size());
-        for(int i=0; i< maxList.size(); i++) {
-            System.out.print(maxList.get(i) + " ");
+        System.out.println(arr.size());
+        for(int i=0; i<arr.size(); i++) {
+            System.out.print(arr.get(i) + " ");
         }
     }
 }
