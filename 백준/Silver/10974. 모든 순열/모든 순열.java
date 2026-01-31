@@ -9,18 +9,17 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
+
         arr = new int[n];
         temp = new int[n];
         visited = new boolean[n];
-
-        for(int i=0; i<arr.length; i++) {
+        for(int i=0; i<n; i++) {
             arr[i] = i+1;
         }
-
-        dfs(0);
+        find(0);
     }
 
-    public static void dfs(int depth) {
+    public static void find(int depth) {
         if(depth == n) {
             for(int i=0; i<temp.length; i++) {
                 System.out.print(temp[i] + " ");
@@ -33,7 +32,7 @@ public class Main {
             if(!visited[i]) {
                 visited[i] = true;
                 temp[depth] = arr[i];
-                dfs(depth + 1);
+                find(depth + 1);
                 visited[i] = false;
             }
         }
