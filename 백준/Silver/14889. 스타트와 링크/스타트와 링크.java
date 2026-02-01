@@ -7,7 +7,6 @@ public class Main {
     static boolean[] visited;
     static int min = Integer.MAX_VALUE;
     public static void main(String[] args) {
-        // n은 짝수
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
         arr = new int[n][n];
@@ -19,26 +18,25 @@ public class Main {
             }
         }
 
-        combi(0, 0);
+        find(0, 0);
         System.out.println(min);
     }
 
-    public static void combi(int idx, int count) {
+    public static void find(int idx, int count) {
         if(count == n / 2) {
-            cal();
+            check();
             return;
         }
-
-        for(int i=idx; i<n; i++) {
+        for(int i=idx; i<visited.length; i++) {
             if(!visited[i]) {
                 visited[i] = true;
-                combi(i + 1, count + 1);
+                find(i + 1, count + 1);
                 visited[i] = false;
             }
         }
     }
 
-    public static void cal() {
+    public static void check() {
         int startTeam = 0;
         int linkTeam = 0;
 
@@ -51,15 +49,11 @@ public class Main {
                 }
             }
         }
-        int value = Math.abs(startTeam - linkTeam);
-
-        if(min > value) {
-            min = value;
-        }
-        if(min == 0) {
-            System.out.println(min);
+        int value = Math.abs(linkTeam - startTeam);
+        if(value == 0) {
+            System.out.println(value);
             System.exit(0);
         }
+        min = Math.min(min, value);
     }
 }
-
