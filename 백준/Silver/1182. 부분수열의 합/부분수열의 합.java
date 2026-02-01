@@ -1,38 +1,40 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int answer;
     static int n;
     static int target;
     static int[] arr;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        target = sc.nextInt();
+    static int answer;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        target = Integer.parseInt(st.nextToken());
         arr = new int[n];
 
+        st = new StringTokenizer(br.readLine());
         for(int i=0; i<arr.length; i++) {
-            arr[i] = sc.nextInt();
+            arr[i] = Integer.parseInt(st.nextToken());
         }
-
         dfs(0, 0);
-
         if(target == 0) {
-            System.out.println(answer -1);
-        } else {
-            System.out.println(answer);
+            answer -= 1;
         }
+        System.out.println(answer);
     }
 
-    public static void dfs(int sum, int depth) {
+    public static void dfs(int depth, int sum) {
         if(depth == n) {
-            if(target == sum) {
+            if(sum == target ) {
                 answer++;
             }
             return;
         }
-
-        dfs(sum + arr[depth], depth + 1);
-        dfs(sum, depth + 1);
+        dfs(depth + 1, sum + arr[depth]);
+        dfs(depth + 1, sum);
     }
 }
