@@ -1,42 +1,44 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
     static int n;
     static int[] arr;
-    static int[] cal;
+    static int[] result;
     static boolean[] visited;
-    static int result;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
+    static int max = 0;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        n = Integer.parseInt(br.readLine());
         arr = new int[n];
-        cal = new int[n];
         visited = new boolean[n];
-        result = 0;
-
+        result = new int[n];
+        StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i=0; i<arr.length; i++) {
-            arr[i] = sc.nextInt();
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        dfs(0);
-        System.out.println(result);
+        find(0);
+        System.out.println(max);
     }
 
-    public static void dfs(int depth) {
+    public static void find(int depth) {
         if(depth == n) {
             int sum = 0;
-            for(int i=0; i<cal.length - 1; i++) {
-                sum += Math.abs(cal[i] - cal[i + 1]);
+            for(int i=0; i<result.length-1; i++) {
+                sum += Math.abs(result[i] - result[i+1]);
             }
-            result = Math.max(result, sum);
+            max = Math.max(sum, max);
             return;
         }
 
         for(int i=0; i<arr.length; i++) {
             if(!visited[i]) {
                 visited[i] = true;
-                cal[depth] = arr[i];
-                dfs(depth + 1);
+                result[depth] = arr[i];
+                find(depth + 1);
                 visited[i] = false;
             }
         }
