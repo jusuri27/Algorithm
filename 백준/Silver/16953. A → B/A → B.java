@@ -1,28 +1,31 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    static long end;
-    static int answer;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        long start = sc.nextInt();
-        end = sc.nextInt();
+    static int m;
+    static int answer = -1;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        long n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
 
-        dfs(start, 1);
-        if(answer > 0) {
-            System.out.println(answer);
-        } else {
-            System.out.println(-1);
-        }
+        find(n, 1);
+        System.out.println(answer);
     }
-    public static void dfs(long num, int count) {
-        if(num >= end) {
-            if(num == end) {
+
+    public static void find(long n, int count) {
+        if(n >= m) {
+            if(n == m) {
                 answer = count;
             }
             return;
         }
-        dfs(num * 2, count + 1);
-        dfs(Long.parseLong(num+"1"), count + 1);
+        String str = n + "1";
+        find(n * 2, count + 1);
+        find(Long.parseLong(str), count+1);
     }
 }
