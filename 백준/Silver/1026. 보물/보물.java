@@ -16,14 +16,15 @@ public class Main {
         for(int i=0; i<b.length; i++) {
             b[i] = sc.nextInt();
         }
+
         Arrays.sort(a);
         Arrays.sort(b, Comparator.reverseOrder());
 
-        int min = 0;
+        int sum = 0;
         for(int i=0; i<a.length; i++) {
-            min += a[i] * b[i];
+            sum += a[i] * b[i];
         }
 
-        System.out.println(min);
+        System.out.println(sum);
     }
 }
