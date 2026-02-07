@@ -1,46 +1,46 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String str = sc.next();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        int num = 0;
+        String str = br.readLine();
+
+        int count = 0;
         for(int i=0; i<str.length(); i++) {
-            if(str.charAt(i) == '.') {
-                int range = i - num;
+            char current = str.charAt(i);
+            if(current == '.') {
+                int range = i - count;
                 if(range % 2 == 1) {
                     System.out.println(-1);
                     return;
                 }
-                while(range > 0) {
-                    if(range >= 4) {
-                        sb.append("AAAA");
-                        range -= 4;
-                    } else {
-                        sb.append("BB");
-                        range -= 2;
-                    }
-                }
 
+                int countFour = range / 4;
+                for(int j=0; j<countFour; j++) {
+                    sb.append("AAAA");
+                }
+                if(range % 4 == 2) {
+                    sb.append("BB");
+                }
                 sb.append(".");
-                num = i + 1;
+                count = i+1;
             }
         }
+        int lastRange = str.length() - count;
+        int countFour = lastRange / 4;
 
-        int lastRange = str.length() - num;
         if(lastRange % 2 == 1) {
             System.out.println(-1);
             return;
         }
-        while(lastRange > 0) {
-            if(lastRange >= 4) {
-                sb.append("AAAA");
-                lastRange -= 4;
-            } else {
-                sb.append("BB");
-                lastRange -= 2;
-            }
+        for(int j=0; j<countFour; j++) {
+            sb.append("AAAA");
+        }
+        if(lastRange % 4 == 2) {
+            sb.append("BB");
         }
 
         System.out.println(sb);
