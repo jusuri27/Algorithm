@@ -1,29 +1,36 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String str = sc.next();
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String str = br.readLine();
         int countZero = 0;
         int countOne = 0;
+
         for(int i=1; i<str.length(); i++) {
-            if(str.charAt(i) != str.charAt(i-1)) {
-                if(str.charAt(i-1) == '0') {
+            char prev = str.charAt(i-1);
+            char current = str.charAt(i);
+            if(prev != current) {
+                if(prev == '0') {
                     countZero++;
-                } else if(str.charAt(i-1) == '1') {
+                } else {
                     countOne++;
                 }
             }
         }
-
-        if(str.charAt(str.length()-1) == '1') {
-            countOne++;
-        } else {
+        char lastValue = str.charAt(str.length() - 1);
+        if(lastValue == '0') {
             countZero++;
+        } else {
+            countOne++;
         }
 
-        System.out.println(Math.min(countOne, countZero));
-
+        if(countZero < countOne) {
+            System.out.println(countZero);
+        } else {
+            System.out.println(countOne);
+        }
     }
 }
