@@ -7,18 +7,17 @@ public class Main {
         int n = sc.nextInt();
         int l = sc.nextInt();
         int[] arr = new int[n];
-        for(int i=0; i<arr.length; i++) {
+
+        for(int i=0; i<arr.length;  i++) {
             arr[i] = sc.nextInt();
         }
         Arrays.sort(arr);
 
-        int count = arr[0] + l;
+        double start = arr[0] - 0.5 + l;
         int answer = 1;
-        for(int i=0; i<arr.length; i++) {
-            if(arr[i] < count) {
-                continue;
-            } else {
-                count = arr[i] + l;
+        for(int i=1; i<arr.length; i++) {
+            if(arr[i] > start) {
+                start = arr[i] + l - 0.5;
                 answer++;
             }
         }
