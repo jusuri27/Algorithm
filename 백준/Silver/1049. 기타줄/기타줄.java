@@ -1,42 +1,50 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int minPackage = Integer.MAX_VALUE;
+        int minUnit = Integer.MAX_VALUE;
 
-        int pakage = Integer.MAX_VALUE;
-        int unit = Integer.MAX_VALUE;
         for(int i=0; i<m; i++) {
-            for(int j=0; j<2; j++) {
-                int value = sc.nextInt();
-                if(j == 0) {
-                    pakage = Math.min(pakage, value);
-                } else {
-                    unit = Math.min(unit, value);
-                }
-            }
+            st = new StringTokenizer(br.readLine());
+            int packageValue = Integer.parseInt(st.nextToken());
+            int unitValue = Integer.parseInt(st.nextToken());
+
+            minPackage = Math.min(minPackage, packageValue);
+            minUnit = Math.min(minUnit, unitValue);
         }
-        
-        if(unit == 0 || pakage == 0) {
+
+        if(minUnit == 0 | minPackage == 0) {
             System.out.println(0);
             return;
         }
 
-        int answer = 0;
-        int range = pakage / unit;
+        int range = minPackage / minUnit;
+        int mod = n % 6;
+        int group = n / 6;
+
         if(range >= 6) {
-            answer = unit * n;
-        } else {
-            answer += n / 6 * pakage;
-            if(n % 6 <= range) {
-                answer += unit * (n % 6);
-            } else {
-                answer += pakage;
-            }
+            System.out.println(minUnit * n);
+            return;
         }
 
-        System.out.println(answer);
+        int value = minPackage * group;
+        if(mod > range) {
+            value += minPackage;
+        } else {
+            value += minUnit * mod;
+        }
+
+        System.out.println(value);
+
+
     }
 }
