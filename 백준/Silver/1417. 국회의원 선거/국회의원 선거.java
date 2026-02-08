@@ -1,30 +1,33 @@
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int m = sc.nextInt();
-        if(n == 1) {
-            System.out.println(0);
-            return;
-        }
-        Integer[] arr = new Integer[n-1];
+        int[] arr = new int[n];
 
         for(int i=0; i<arr.length; i++) {
             arr[i] = sc.nextInt();
         }
 
+        int target = arr[0];
         int count = 0;
-        Arrays.sort(arr, Comparator.reverseOrder());
-        while(m <= arr[0]) {
-            m++;
-            arr[0]--;
+        while(true) {
+            int max = 0;
+            int idx = 0;
+            for(int i=1; i<arr.length; i++) {
+                if(max < arr[i]) {
+                    max = arr[i];
+                    idx = i;
+                }
+            }
+            if(target > max) {
+                System.out.println(count);
+                break;
+            }
+            arr[idx]--;
+            target++;
             count++;
-            Arrays.sort(arr, Comparator.reverseOrder());
         }
-        System.out.println(count);
     }
 }
