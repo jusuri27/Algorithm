@@ -1,10 +1,11 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
         if(n % 2 == 1) {
             System.out.println("SK");
         } else {
@@ -14,30 +15,12 @@ public class Main {
 }
 
 /*
-1 sk
+1 - sk
+2 - cy
+3 - sk
+4 - cy
+5 - sk
+6 - cy
 
-2
-1 1 cy
 
-3
-3 sk
-
-4
-1 3 cy
-3 1 cy
-cy
-
-5
-1 1 3 sk
-1 3 1 sk
-3 1 1 sk
-
-6
-3 3 cy
-3 1 1 1 cy
-1 1 1 3 cy
-
-7
-3 3 1 sk
-3 1 3
  */
