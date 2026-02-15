@@ -10,35 +10,28 @@ public class Main {
             arr[i] = sc.nextInt();
         }
 
-        int highMax = 0;
+        int maxValue = 0;
+        int minValue = Integer.MAX_VALUE;
+        int maxCount = 0;
+        int minCount = 0;
+        int max = 0;
         for(int i=0; i<arr.length; i++) {
-            int highTemp = arr[i];
-            int highCount = 1;
-            for(int j=i+1; j<arr.length; j++) {
-                if(highTemp <= arr[j]) {
-                    highTemp = arr[j];
-                    highCount++;
-                    continue;
-                }
-                break;
+            if(maxValue <= arr[i]) {
+                maxValue = arr[i];
+                maxCount++;
+            } else {
+                maxValue = arr[i];
+                maxCount = 1;
             }
-            highMax = Math.max(highMax, highCount);
-        }
-
-        int lowMax = 0;
-        for(int i=0; i<arr.length; i++) {
-            int lowTemp = arr[i];
-            int lowCount = 1;
-            for(int j=i+1; j<arr.length; j++) {
-                if(lowTemp >= arr[j]) {
-                    lowTemp = arr[j];
-                    lowCount++;
-                    continue;
-                }
-                break;
+            if(minValue >= arr[i]) {
+                minValue = arr[i];
+                minCount++;
+            } else {
+                minValue = arr[i];
+                minCount = 1;
             }
-            lowMax = Math.max(lowMax, lowCount);
+            max = Math.max(max, Math.max(minCount, maxCount));
         }
-        System.out.println(Math.max(highMax, lowMax));
+        System.out.println(max);
     }
 }
