@@ -1,36 +1,42 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
     static int[][] arr;
     static boolean[] visited;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
         arr = new int[n+1][n+1];
         visited = new boolean[n+1];
 
         for(int i=0; i<m; i++) {
-            int j = sc.nextInt();
-            int k = sc.nextInt();
-            arr[j][k] = 1;
-            arr[k][j] = 1;
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            arr[a][b] = 1;
+            arr[b][a] = 1;
         }
 
-        int answer = 0;
+        int count = 0;
         for(int i=1; i<arr.length; i++) {
             if(!visited[i]) {
-                answer++;
+                count++;
                 dfs(i);
             }
         }
-        System.out.println(answer);
+        System.out.println(count);
     }
 
     public static void dfs(int i) {
         visited[i] = true;
         for(int j=1; j<arr.length; j++) {
-            if(!visited[j] && arr[i][j] == 1) {
+            if(arr[i][j] == 1 && !visited[j]) {
                 dfs(j);
             }
         }
