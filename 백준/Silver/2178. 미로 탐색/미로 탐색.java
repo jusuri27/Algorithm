@@ -12,22 +12,21 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-        int[][] arr = new int[n][m];
-        boolean[][] visited = new boolean[n][m];
         int[] dx = {1, -1, 0, 0};
         int[] dy = {0, 0, 1, -1};
+        int[][] arr = new int[n][m];
+        boolean[][] visited = new boolean[n][m];
 
         for(int i=0; i<arr.length; i++) {
             String str = br.readLine();
             for(int j=0; j<str.length(); j++) {
-                int value = str.charAt(j) - '0';
-                arr[i][j] = value;
+                arr[i][j] = str.charAt(j) - '0';
             }
         }
 
         Queue<int[]> queue = new LinkedList<>();
-        visited[0][0] = true;
         queue.add(new int[]{0, 0, 1});
+        visited[0][0] = true;
 
         while(!queue.isEmpty()) {
             int[] current = queue.poll();
@@ -35,7 +34,7 @@ public class Main {
             int cy = current[1];
             int cnt = current[2];
 
-            if(cx == n-1 && cy == m-1) {
+            if(cx == arr.length - 1 && cy == arr[0].length - 1) {
                 System.out.println(cnt);
                 break;
             }
@@ -43,12 +42,11 @@ public class Main {
             for(int i=0; i<dx.length; i++) {
                 int nx = cx + dx[i];
                 int ny = cy + dy[i];
-                if(nx >= 0 && ny >= 0) {
-                    if(nx < n && ny < m) {
-                        if(!visited[nx][ny] && arr[nx][ny] == 1) {
-                            visited[nx][ny] = true;
-                            queue.add(new int[]{nx, ny, cnt+1});
-                        }
+
+                if(nx >=0 && ny >= 0 && nx < arr.length && ny < arr[0].length) {
+                    if(!visited[nx][ny] && arr[nx][ny] == 1) {
+                        visited[nx][ny] = true;
+                        queue.add(new int[]{nx, ny, cnt+1});
                     }
                 }
             }
