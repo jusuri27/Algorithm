@@ -1,45 +1,49 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Deque;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int k = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
         int max = 100000;
-        int[] arr = new int[max+1];
+        int[] arr = new int[max + 1];
         Arrays.fill(arr, Integer.MAX_VALUE);
 
-        Deque<Integer> deque = new ArrayDeque<>();
-        deque.add(n);
-        arr[n] = 0;
-        while(!deque.isEmpty()){
-            int value = deque.pollFirst();
+        ArrayDeque<Integer> queue = new ArrayDeque<>();
 
-            if(k == value) {
+        queue.add(n);
+        arr[n] = 0;
+        while(!queue.isEmpty()) {
+            int current = queue.poll();
+            if(current == k) {
+                System.out.println(arr[current]);
                 break;
             }
 
-            int nextValue = value * 2;
-            if(nextValue <= max && arr[nextValue] > arr[value]) {
-                deque.addFirst(nextValue);
-                arr[nextValue] = arr[value];
+            int next = current * 2;
+            if(max >= next && arr[next] > arr[current]) {
+                arr[next] = arr[current];
+                queue.addFirst(next);
             }
 
-            nextValue = value + 1;
-            if(nextValue <= max && arr[nextValue] > arr[value] + 1) {
-                deque.addLast(nextValue);
-                arr[nextValue] = arr[value] + 1;
+            next = current + 1;
+            if(max >= next && arr[next] > arr[current] + 1) {
+                arr[next] = arr[current] + 1;
+                queue.addLast(next);
             }
 
-            nextValue = value - 1;
-            if(nextValue >= 0 && arr[nextValue] > arr[value] + 1) {
-                deque.addLast(nextValue);
-                arr[nextValue] = arr[value] + 1;
+            next = current - 1;
+            if(next >= 0 && arr[next] > arr[current] + 1) {
+                arr[next] = arr[current] + 1;
+                queue.addLast(next);
             }
         }
-        System.out.println(arr[k]);
     }
 }
