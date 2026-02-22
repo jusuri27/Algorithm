@@ -4,19 +4,19 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Main {
     static int[] dx = {1, -1, 0, 0};
     static int[] dy = {0, 0, 1, -1};
-    static boolean[][] visitedA;
-    static boolean[][] visitedB;
     static char[][] arr;
+    static boolean[][] visited;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
         arr = new char[n][n];
-        visitedA = new boolean[n][n];
-        visitedB = new boolean[n][n];
+        visited = new boolean[n][n];
 
         for(int i=0; i<arr.length; i++) {
             String str = br.readLine();
@@ -26,30 +26,40 @@ public class Main {
         }
 
         int countA = 0;
-        int countB = 0;
         for(int i=0; i<arr.length; i++) {
             for(int j=0; j<arr[i].length; j++) {
-                if(!visitedA[i][j]) {
+                if(!visited[i][j]) {
                     countA++;
-                    bfs(arr[i][j], 'A', i, j);
+                    bfs(arr[i][j], i, j);
                 }
-                if(!visitedB[i][j]) {
+            }
+        }
+
+        for(int i=0; i<arr.length; i++) {
+            for(int j=0; j<arr[i].length; j++) {
+                if(arr[i][j] == 'G') {
+                    arr[i][j] = 'R';
+                }
+            }
+        }
+
+        visited = new boolean[n][n];
+        int countB = 0;
+        for(int i=0; i<arr.length; i++) {
+            for(int j=0; j<arr.length; j++) {
+                if(!visited[i][j]) {
                     countB++;
-                    bfs(arr[i][j], 'B', i, j);
+                    bfs(arr[i][j], i, j);
                 }
             }
         }
         System.out.println(countA + " " + countB);
     }
 
-    public static void bfs(char target, char type, int x, int y) {
+    public static void bfs(char type, int x, int y) {
         Queue<int[]> queue = new LinkedList<>();
         queue.add(new int[]{x, y});
-        if(type == 'A') {
-            visitedA[x][y] = true;
-        } else {
-            visitedB[x][y] = true;
-        }
+        visited[x][y] = true;
 
         while(!queue.isEmpty()) {
             int[] current = queue.poll();
@@ -60,24 +70,10 @@ public class Main {
                 int nx = cx + dx[i];
                 int ny = cy + dy[i];
 
-                if(nx >= 0 && ny >= 0 && nx < arr.length && ny <arr[0].length) {
-                    if(type == 'A') {
-                        if(arr[nx][ny] == target && !visitedA[nx][ny]) {
-                            visitedA[nx][ny] = true;
-                            queue.add(new int[]{nx, ny});
-                        }
-                    } else {
-                        if(!visitedB[nx][ny]) {
-                            if(arr[nx][ny] == target && target == 'B') {
-                                visitedB[nx][ny] = true;
-                                queue.add(new int[]{nx, ny});
-                            }
-                            if(target != 'B' && (arr[nx][ny] == 'R' || arr[nx][ny] == 'G')) {
-                                visitedB[nx][ny] = true;
-                                queue.add(new int[]{nx, ny});
-                            }
-                        }
-
+                if(nx >= 0 && ny >= 0 && nx < arr.length && ny < arr[0].length) {
+                    if(!visited[nx][ny] && arr[nx][ny] == type) {
+                        visited[nx][ny] = true;
+                        queue.add(new int[]{nx, ny});
                     }
                 }
             }
