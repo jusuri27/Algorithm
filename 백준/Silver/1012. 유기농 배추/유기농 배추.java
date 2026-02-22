@@ -1,71 +1,68 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
     static int[][] arr;
     static boolean[][] visited;
-    static int m;
-    static int n;
     static int[] dx = {1, -1, 0, 0};
     static int[] dy = {0, 0, 1, -1};
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-        for(int i=0; i<t; i++) {
-            m = sc.nextInt();
-            n = sc.nextInt();
-            int cnt = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
 
-            arr = new int[m][n];
-            visited = new boolean[m][n];
-            for(int j=0; j<cnt; j++) {
-                int x = sc.nextInt();
-                int y = sc.nextInt();
-                arr[x][y] = 1;
+        for(int i=0; i<t; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int n = Integer.parseInt(st.nextToken());
+            int m = Integer.parseInt(st.nextToken());
+            int k = Integer.parseInt(st.nextToken());
+            arr = new int[n][m];
+            visited = new boolean[n][m];
+
+            for(int j=0; j<k; j++) {
+                st = new StringTokenizer(br.readLine());
+                int a = Integer.parseInt(st.nextToken());
+                int b = Integer.parseInt(st.nextToken());
+                arr[a][b] = 1;
             }
 
-            int value = 0;
-            int answer = 0;
-            for(int j=0; j<arr.length; j++) {
-                if(value == cnt) {
-                    break;
-                }
-                for(int k=0; k<arr[j].length; k++) {
-                    if(arr[j][k] == 1 && !visited[j][k]) {
-                        visited[j][k] = true;
-                        value += bfs(j, k, 1);
-                        answer++;
+            int count = 0;
+            for(int p=0; p<arr.length; p++) {
+                for(int q=0; q<arr[p].length; q++) {
+                    if(!visited[p][q] && arr[p][q] == 1) {
+                        count++;
+                        bfs(p, q);
                     }
                 }
             }
-            System.out.println(answer);
+            System.out.println(count);
         }
     }
 
-    public static int bfs(int x, int y, int cnt) {
+    public static void bfs(int x, int y) {
+        visited[x][y] = true;
         Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{x, y, cnt});
-        while(true) {
+        queue.add(new int[]{x, y});
+
+        while(!queue.isEmpty()) {
             int[] current = queue.poll();
             int cx = current[0];
             int cy = current[1];
-            int count = current[2];
 
             for(int i=0; i<dx.length; i++) {
                 int nx = cx + dx[i];
                 int ny = cy + dy[i];
-                if(nx >= 0 && ny >= 0 && nx < m && ny < n) {
-                    if(arr[nx][ny] == 1 && !visited[nx][ny]) {
+
+                if(nx >= 0 && ny >= 0 && nx < arr.length && ny < arr[0].length ) {
+                    if(!visited[nx][ny] && arr[nx][ny] == 1) {
                         visited[nx][ny] = true;
-                        count = count+1;
-                        queue.add(new int[]{nx, ny, count+1});
+                        queue.add(new int[]{nx, ny});
                     }
                 }
-            }
-            if(queue.isEmpty()) {
-                return count;
             }
         }
     }
