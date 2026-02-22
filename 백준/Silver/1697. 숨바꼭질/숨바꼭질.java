@@ -1,34 +1,45 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int k = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int max = 100000;
+        int[] arr = new int[max + 1];
+        Arrays.fill(arr, Integer.MAX_VALUE);
+
 
         Queue<Integer> queue = new LinkedList<>();
-        int[] visited = new int[100001];
-        int cnt = 0;
         queue.add(n);
+        arr[n] = 0;
         while(true) {
-            int current = queue.poll();
-            if(current == k) {
-                System.out.println(visited[current]);
+            int value = queue.poll();
+            if(value == m) {
+                System.out.println(arr[value]);
                 break;
             }
-            if(current - 1 >= 0 && visited[current - 1] == 0) {
-                queue.add(current - 1);
-                visited[current - 1] = visited[current] + 1;
+
+            int next = value * 2;
+            if(max >= next && arr[next] > arr[value] + 1) {
+                arr[next] = arr[value] + 1;
+                queue.add(next);
             }
-            if(current + 1 <= 100000 && visited[current + 1] == 0) {
-                queue.add(current + 1);
-                visited[current + 1] = visited[current] + 1;
+
+            next = value + 1;
+            if(max >= next && arr[next] > arr[value] + 1) {
+                arr[next] = arr[value] + 1;
+                queue.add(next);
             }
-            if(current * 2 <= 100000 && visited[current * 2] == 0) {
-                queue.add(current * 2);
-                visited[current * 2] = visited[current] + 1;
+
+            next = value - 1;
+            if(next >= 0 && arr[next] > arr[value] + 1) {
+                arr[next] = arr[value] + 1;
+                queue.add(next);
             }
         }
     }
