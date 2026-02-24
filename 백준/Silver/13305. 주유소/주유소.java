@@ -14,12 +14,10 @@ public class Main {
         }
 
         long sum = k[0] * price[0];
+        long min = price[0];
 
         for(int i=1; i<k.length; i++) {
-            long min = Integer.MAX_VALUE;
-            for(int j=0; j<=i; j++) {
-                min = Math.min(min, price[j]);
-            }
+            min = Math.min(min, price[i]);
             sum += min * k[i];
         }
         System.out.println(sum);
