@@ -1,32 +1,29 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String str = sc.next();
-        String[] arr = str.split("-");
-        for(int i=0; i<arr.length; i++) {
-            if(arr[i].contains("+")) {
-                String[] value = arr[i].split("[+]");
-                int sum = 0;
-                for(int j=0; j<value.length; j++) {
-                    sum += Integer.parseInt(value[j]);
-                }
-                arr[i] = String.valueOf(sum);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] str = br.readLine().split("-");
+
+        int sum = 0;
+        for(int i=0; i<str.length; i++) {
+            String[] plus = str[i].split("\\+");
+            int value = 0;
+            for(int j=0; j<plus.length; j++) {
+                value += Integer.parseInt(plus[j]);
+            }
+
+            if(i == 0) {
+                sum += value;
+            } else {
+                sum -= value;
             }
         }
 
-        int answer = Integer.parseInt(arr[0]);
-        for(int i=1; i<arr.length; i++) {
-            answer -= Integer.parseInt(arr[i]);
-        }
-        System.out.println(answer);
+        System.out.println(sum);
     }
 }
-/*
-
-10-20-30+40
-10+20+30+40-10+20+30+40
-10+20+30+40-10+20+30-40
- */
