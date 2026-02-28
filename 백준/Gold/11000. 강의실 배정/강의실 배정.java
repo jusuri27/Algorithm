@@ -5,36 +5,34 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int[][] arr = new int[n][2];
+
         for(int i=0; i<arr.length; i++) {
-            arr[i][0] = sc.nextInt();
-            arr[i][1] = sc.nextInt();
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+
+            arr[i][0] = a;
+            arr[i][1] = b;
         }
 
         Arrays.sort(arr, (a, b) -> {
-            if(a[0] == b[0]) {
-                return a[1] - b[1];
-            }
             return a[0] - b[0];
         });
 
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        int end = arr[0][1];
-        pq.add(end);
-
-        for(int i=1; i<arr.length; i++) {
-            if(arr[i][0] >= pq.peek()) {
+        for(int i=0; i<arr.length; i++) {
+            pq.add(arr[i][1]);
+            if(pq.peek() <= arr[i][0]) {
                 pq.poll();
             }
-            pq.add(arr[i][1]);
         }
         System.out.println(pq.size());
     }
 }
 
 /*
-4
-1 4
-4 7
-5 7
-6 7
+
+3
+2 4
+1 3
+3 5
  */
