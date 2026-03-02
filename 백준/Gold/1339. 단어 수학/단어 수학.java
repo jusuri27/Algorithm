@@ -1,37 +1,34 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        List<List<String>> arr = new ArrayList<>();
+        Integer[] arr = new Integer[26];
+        Arrays.fill(arr, 0);
 
         for(int i=0; i<n; i++) {
             String str = br.readLine();
-            arr.add(Arrays.asList(str.split("")));
-        }
-
-        HashMap<String, Integer> map = new HashMap<>();
-
-        for(int i=0; i<arr.size(); i++) {
-            int count = 1;
-            for(int j=arr.get(i).size()-1; j>=0; j--) {
-                String key = arr.get(i).get(j);
-                map.put(key, map.getOrDefault(key, 0) + count);
-                count *= 10;
+            int num = 1;
+            for(int j=str.length()-1; j>=0; j--) {
+                arr[str.charAt(j) - 'A'] += num;
+                num *= 10;
             }
         }
-        List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
-        list.sort((e1, e2) -> e2.getValue() - e1.getValue());
 
-        int num = 9;
+        Arrays.sort(arr, Comparator.reverseOrder());
+
+        int count = 9;
         int sum = 0;
-        for (Map.Entry<String, Integer> entry : list) {
-            sum += entry.getValue() * num;
-            num--;
+        for(int i=0; i<26; i++) {
+            if(arr[i] != 0) {
+                sum += arr[i] * count;
+            }
+            count--;
         }
         System.out.println(sum);
     }
