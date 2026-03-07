@@ -1,23 +1,16 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int k = sc.nextInt();
+        int n = Integer.parseInt(sc.nextLine());
+        int m = Integer.parseInt(sc.nextLine());
 
-        String[] temp = String.valueOf(n).split("");
-        temp[temp.length-1] = "0";
-        temp[temp.length-2] = "0";
-        String str = String.join("", temp);
-        int value = Integer.parseInt(str);
+        n = n - (n % 100);
 
-        while(value % k != 0) {
-            value++;
+        while(n % m != 0) {
+            n++;
         }
-
-        String answer = String.format("%02d", value % 100);
-        System.out.println(answer);
+        System.out.printf("%02d", n % 100);
     }
 }
