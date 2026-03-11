@@ -1,31 +1,37 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int m = Integer.parseInt(br.readLine());
         boolean[] arr = new boolean[10];
-        for(int i=0; i<m; i++) {
-            arr[sc.nextInt()] = true;
+
+        if(m > 0) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for(int i=0; i<m; i++) {
+                arr[Integer.parseInt(st.nextToken())] = true;
+            }
         }
+        
+        int answer = Math.abs(100-n);
+        for(int i=0; i<1000000; i++) {
+            String str = String.valueOf(i);
 
-        int answer = Math.abs(n-100);
-        for(int i=0; i<=999999; i++) {
-            String value = String.valueOf(i);
-
-            boolean check = true;
-            for(int j=0; j<value.length(); j++) {
-                if(arr[value.charAt(j) - '0']) {
-                    check = false;
+            boolean broken = false;
+            for(int j=0; j<str.length(); j++) {
+                if(arr[str.charAt(j) - '0']) {
+                    broken = true;
                     break;
                 }
             }
 
-            if(check) {
-                int num = Math.abs(n-i) + value.length();
-                answer = Math.min(answer, num);
+            if(!broken) {
+                int value = Math.abs(n - i) + str.length();
+                answer = Math.min(answer, value);
             }
         }
         System.out.println(answer);
