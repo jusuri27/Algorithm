@@ -17,20 +17,20 @@ public class Main {
             dp[i] = 100000;
             for(int j=0; j<arr.length; j++) {
                 int value = arr[j];
-                if(i >= value) {
+                if(value <= i) {
                     dp[i] = Math.min(dp[i], dp[i-value] + 1);
                 }
             }
         }
-
         System.out.println(dp[k] == 100000 ? -1 : dp[k]);
     }
 }
 
-/*
 
-dp[0] = 0;
-dp[2] = dp[2-1] + 1
-dp[5] = dp[5-5] + 1 or dp[5-1] + 1
+/*
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+1 2 3 4 1 2 3 4 5 2  3  4  5  6  3
+1 2 3 4 1 2 3 4 5 2  3  1  2  3  3
+
 
  */
