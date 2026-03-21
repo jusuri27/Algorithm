@@ -5,48 +5,45 @@ public class Main {
     static int[] dy = {0, 0, 1, -1};
     static int[][] arr;
     static boolean[][] visited;
+    static List<Integer> answer = new ArrayList<>();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
         int m = sc.nextInt();
+        int n = sc.nextInt();
         int k = sc.nextInt();
         arr = new int[m][n];
         visited = new boolean[m][n];
 
-        for(int i=0; i<k; i++) {
-            int lx = sc.nextInt();
-            int ly = sc.nextInt();
-            int rx = sc.nextInt();
-            int ry = sc.nextInt();
+        for(int t=0; t<k; t++) {
+            int x1 = sc.nextInt();
+            int y1 = sc.nextInt();
+            int x2 = sc.nextInt();
+            int y2 = sc.nextInt();
 
-            for(int x=lx; x<rx; x++) {
-                for(int y=ly; y<ry; y++) {
-                    arr[x][y] = 1;
+            for(int i=y1; i<y2; i++) {
+                for(int j=x1; j<x2; j++) {
+                    arr[i][j] = 1;
                 }
             }
         }
 
-        List<Integer> answer = new ArrayList<>();
         int count = 0;
         for(int i=0; i<arr.length; i++) {
             for(int j=0; j<arr[i].length; j++) {
-                if(arr[i][j] == 0 && !visited[i][j]) {
-                    int value = bfs(i, j);
+                if(!visited[i][j] && arr[i][j] == 0) {
                     count++;
-                    if(value != 0) {
-                        answer.add(value);
-                    }
+                    bfs(i, j);
                 }
             }
         }
-        answer.sort(null);
         System.out.println(count);
-        for(int val : answer) {
-            System.out.print(val + " ");
+        answer.sort(null);
+        for(int i : answer) {
+            System.out.print(i + " ");
         }
     }
 
-    public static int bfs(int x, int y) {
+    public static void bfs(int x, int y) {
         visited[x][y] = true;
         Queue<int[]> queue = new LinkedList<>();
         queue.add(new int[]{x, y});
@@ -60,19 +57,23 @@ public class Main {
             for(int i=0; i<dx.length; i++) {
                 int nx = cx + dx[i];
                 int ny = cy + dy[i];
+
                 if(nx >= 0 && ny >= 0 && nx < arr.length && ny < arr[0].length) {
-                    if(arr[nx][ny] == 0 && !visited[nx][ny]){
+                    if(arr[nx][ny] == 0 && !visited[nx][ny]) {
+                        count++;
                         visited[nx][ny] = true;
                         queue.add(new int[]{nx, ny});
-                        count++;
                     }
                 }
             }
-
-            if(queue.isEmpty()) {
-                break;
-            }
         }
-        return count;
+        answer.add(count);
     }
 }
+
+/*
+m : 가로
+n : 세로
+k : 좌표 개수
+
+ */
