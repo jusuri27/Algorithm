@@ -4,10 +4,10 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class Main {
+    static boolean[][] visited;
+    static int[][] arr;
     static int[] dx = {1, -1, 0, 0};
     static int[] dy = {0, 0, 1, -1};
-    static int[][] arr;
-    static boolean[][] visited;
     static int max = 0;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -25,13 +25,12 @@ public class Main {
         int count = 0;
         for(int i=0; i<arr.length; i++) {
             for(int j=0; j<arr[i].length; j++) {
-                if(arr[i][j] == 1 && !visited[i][j]) {
+                if(!visited[i][j] && arr[i][j] == 1){
                     count++;
                     bfs(i, j);
                 }
             }
         }
-
         System.out.println(count);
         System.out.println(max);
     }
@@ -51,10 +50,10 @@ public class Main {
                 int nx = cx + dx[i];
                 int ny = cy + dy[i];
 
-                if(nx >= 0 && ny >= 0 && nx < arr.length && ny <arr[0].length) {
+                if(nx >=0 && ny >= 0 && nx < arr.length && ny < arr[0].length) {
                     if(arr[nx][ny] == 1 && !visited[nx][ny]) {
-                        visited[nx][ny] = true;
                         count++;
+                        visited[nx][ny] = true;
                         queue.add(new int[]{nx, ny});
                     }
                 }
