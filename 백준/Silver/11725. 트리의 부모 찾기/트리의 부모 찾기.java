@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    static List<List<Integer>> arr = new ArrayList<>();
+    static List<List<Integer>> list = new ArrayList<>();
     static boolean[] visited;
     static int[] parent;
     public static void main(String[] args) {
@@ -11,17 +12,16 @@ public class Main {
         int n = sc.nextInt();
         visited = new boolean[n+1];
         parent = new int[n+1];
-
         for(int i=0; i<=n; i++) {
-            arr.add(new ArrayList<>());
+            list.add(new ArrayList<>());
         }
 
-        for(int i=0; i<n-1; i++) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
+        for(int i=1; i<n; i++) {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
 
-            arr.get(a).add(b);
-            arr.get(b).add(a);
+            list.get(x).add(y);
+            list.get(y).add(x);
         }
 
         dfs(1);
@@ -29,16 +29,19 @@ public class Main {
         for(int i=2; i<parent.length; i++) {
             System.out.println(parent[i]);
         }
+
     }
 
     public static void dfs(int start) {
         visited[start] = true;
-        for(int i : arr.get(start)) {
+
+        for(int i : list.get(start)) {
             if(!visited[i]) {
-                dfs(i);
                 parent[i] = start;
+                dfs(i);
             }
         }
     }
 }
-
+// [[], [6], [4], [5], [1, 7], [], [3]]
+// [[], [6, 4], [4], [6, 5], [1, 2, 7], [3], [1, 3], [4]]
