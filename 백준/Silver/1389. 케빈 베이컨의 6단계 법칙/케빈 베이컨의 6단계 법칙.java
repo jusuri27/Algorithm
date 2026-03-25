@@ -1,38 +1,32 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int sum = 0;
     static int[][] arr;
-    static boolean[] visited;
-    static int min = Integer.MAX_VALUE;
     static int[] answer;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
         arr = new int[n+1][n+1];
-        visited =new boolean[n+1];
         answer = new int[n+1];
-
         for(int i=0; i<m; i++) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
 
             arr[a][b] = 1;
             arr[b][a] = 1;
         }
 
         for(int i=1; i<arr.length; i++) {
-            if(!visited[i]) {
-                sum = 0;
-                visited[i] = true;
-                boolean[] tempVisited = Arrays.copyOf(visited, visited.length);
-                bfs(i, 1, tempVisited);
-                visited[i] = false;
-            }
+            bfs(i, 0);
         }
 
         int min = Integer.MAX_VALUE;
@@ -46,36 +40,25 @@ public class Main {
         System.out.println(result);
     }
 
-    public static void bfs(int start, int count, boolean[] visited) {
+    public static void bfs(int start, int depth) {
+        boolean[] visited = new boolean[arr.length];
+        visited[start] = true;
         Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{start, count});
+        queue.add(new int[]{start, 1});
+        int sum = 0;
         while(!queue.isEmpty()) {
             int[] current = queue.poll();
-            int idx = current[0];
+            int begin = current[0];
             int cnt = current[1];
 
-            for(int i=0; i<arr.length; i++) {
-                if(!visited[i] && arr[idx][i] == 1) {
+            for(int i=1; i<arr.length; i++) {
+                if(arr[begin][i] == 1 && !visited[i]) {
                     sum += cnt;
                     visited[i] = true;
-                    queue.add(new int[]{i, cnt+1});
+                    queue.add(new int[]{i, cnt + 1});
                 }
             }
         }
         answer[start] = sum;
     }
 }
-
-/*
-1 1 2 2 3
-최대 6단계
-1 -> 3
-1 -> 4
-2 -> 3
-3 -> 4
-4 -> 5
-
-최소 몇 단계인지 구하기!!
-케빈 베이컨의 수가 가장 작은 사람을 출력한다.
-그런 사람이 여러 명일 경우에는 번호가 가장 작은 사람.
- */
