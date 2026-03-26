@@ -2,8 +2,8 @@ import java.util.*;
 
 public class Main {
     static int k;
-    static List<List<Integer>> arr;
     static boolean[] visited;
+    static List<List<Integer>> list;
     static List<Integer> answer = new ArrayList<>();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -11,20 +11,20 @@ public class Main {
         int m = sc.nextInt();
         k = sc.nextInt();
         int x = sc.nextInt();
-        arr = new ArrayList<>();
         visited = new boolean[n+1];
 
+        list = new ArrayList<>();
         for(int i=0; i<=n; i++) {
-            arr.add(new ArrayList<>());
+            list.add(new ArrayList<>());
         }
-
         for(int i=0; i<m; i++) {
             int a = sc.nextInt();
             int b = sc.nextInt();
 
-            arr.get(a).add(b);
+            list.get(a).add(b);
         }
-        bfs(x, 0);
+
+        bfs(x);
         answer.sort(null);
         if(answer.isEmpty()) {
             System.out.println(-1);
@@ -35,23 +35,25 @@ public class Main {
         }
     }
 
-    public static void bfs(int start, int depth) {
+    public static void bfs(int start) {
         visited[start] = true;
         Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{start, depth});
+        queue.add(new int[]{start, 0});
 
+        boolean found = false;
         while(!queue.isEmpty()) {
             int[] current = queue.poll();
-            int idx = current[0];
+            int now = current[0];
             int cnt = current[1];
 
             if(cnt == k) {
-                answer.add(idx);
+                found = true;
+                answer.add(now);
             }
-            for(int i : arr.get(idx)) {
+            for(Integer i : list.get(now)) {
                 if(!visited[i]) {
                     visited[i] = true;
-                    queue.add(new int[]{i, cnt+1});
+                    queue.add(new int[]{i, cnt + 1});
                 }
             }
         }
@@ -59,8 +61,9 @@ public class Main {
 }
 
 /*
-도시의 개수 n
-도로의 개수 m
-거리 정보 k
-출발 도시 번호 x
+n번 까지의 도시
+m개의 단방향 도로
+최단 거리가 k인 모든 도시 번호 출력
+  - 도시 번호는 오름차순
+  - 존재하지 않으면 -1
  */
