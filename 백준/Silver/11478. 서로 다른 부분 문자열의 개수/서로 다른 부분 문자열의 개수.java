@@ -7,10 +7,8 @@ public class Main {
         String str = sc.nextLine();
         HashSet<String> set = new HashSet<>();
         for(int i=0; i<str.length(); i++) {
-            for(int j=1; j<=str.length(); j++) {
-                if(j > i) {
-                    set.add(str.substring(i, j));
-                }
+            for(int j=i+1; j<=str.length(); j++) {
+                set.add(str.substring(i, j));
             }
         }
         System.out.println(set.size());
