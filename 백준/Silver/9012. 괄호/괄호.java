@@ -5,23 +5,23 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        for(int i=0; i<n; i++) {
-            String str = sc.next();
-            String answer = "YES";
-            Queue<Character> queue = new LinkedList<>();
+        int n = Integer.parseInt(sc.nextLine());
 
+        for(int i=0; i<n; i++) {
+            String str = sc.nextLine();
+            Queue<Character> queue = new LinkedList<>();
+            String answer = "YES";
             for(int j=0; j<str.length(); j++) {
-                char value = str.charAt(j);
-                if(value == '(') {
-                    queue.add(value);
+                if(str.charAt(j) == '(') {
+                    queue.add('(');
                 }
-                if(value == ')') {
+                if(str.charAt(j) == ')') {
                     if(queue.isEmpty()) {
                         answer = "NO";
                         break;
+                    } else {
+                        queue.poll();
                     }
-                    queue.poll();
                 }
             }
             if(!queue.isEmpty()) {
