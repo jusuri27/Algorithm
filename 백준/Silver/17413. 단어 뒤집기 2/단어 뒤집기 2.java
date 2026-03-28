@@ -1,49 +1,44 @@
-import java.util.*;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-        StringBuilder answer = new StringBuilder();
-        StringBuilder temp = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
+        Stack<Character> stack = new Stack<>();
         boolean check = false;
+
         for(int i=0; i<str.length(); i++) {
-            char value = str.charAt(i);
-            if(value == '<') {
-                if(temp.length() > 0) {
-                    String val = new StringBuilder(temp).reverse().toString();
-                    answer.append(val);
-                    temp = new StringBuilder();
+            char current = str.charAt(i);
+            if(current == '<') {
+                while(!stack.isEmpty()) {
+                    sb.append(stack.pop());
                 }
                 check = true;
-                answer.append(value);
-                continue;
             }
-            if(value == '>') {
+            if(current == '>') {
                 check = false;
-                answer.append(value);
+                sb.append(current);
                 continue;
             }
             if(check) {
-                answer.append(value);
+               sb.append(current);
             }
             if(!check) {
-                if(value == ' ') {
-                    if(temp.length() > 0) {
-                        String val = new StringBuilder(temp).reverse().toString();
-                        answer.append(val);
-                        temp = new StringBuilder();
+                if(current == ' ') {
+                    while(!stack.isEmpty()) {
+                        sb.append(stack.pop());
                     }
-                    answer.append(value);
+                    sb.append(current);
                 } else {
-                    temp.append(value);
+                    stack.push(current);
                 }
             }
         }
-        if(temp.length() > 0) {
-            String val = new StringBuilder(temp).reverse().toString();
-            answer.append(val);
+        while(!stack.isEmpty()) {
+            sb.append(stack.pop());
         }
-        System.out.println(answer);
+        System.out.println(sb);
     }
 }
