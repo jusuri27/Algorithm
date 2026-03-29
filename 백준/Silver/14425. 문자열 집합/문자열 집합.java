@@ -12,18 +12,18 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
         List<String> list = new ArrayList<>();
-        String[] str2 = new String[m];
 
         for(int i=0; i<n; i++) {
             list.add(br.readLine());
         }
+
         int count = 0;
-        for(int i=0; i<str2.length; i++) {
-            if(list.contains(br.readLine())) {
+        for(int i=0; i<m; i++) {
+            String value = br.readLine();
+            if(list.contains(value)) {
                 count++;
             }
         }
         System.out.println(count);
-
     }
 }
