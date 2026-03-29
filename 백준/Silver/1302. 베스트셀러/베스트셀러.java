@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -6,20 +9,19 @@ public class Main {
         int n = Integer.parseInt(sc.nextLine());
         HashMap<String, Integer> map = new HashMap<>();
 
-        int max = 0;
-        for(int i=0; i<n; i++) {
+        for(int i=0;  i<n; i++) {
             String value = sc.nextLine();
-            map.put(value, map.getOrDefault(value, 1) + 1);
-            max = Math.max(max, map.get(value));
+            map.put(value, map.getOrDefault(value, 0) + 1);
         }
 
-        List<String> list = new ArrayList<>();
-        for(Map.Entry<String, Integer> entry : map.entrySet()) {
-            if(entry.getValue() == max) {
-                list.add(entry.getKey());
-            }
-        }
-        list.sort(null);
+        List<String> list = new ArrayList<>(map.keySet());
+        list.sort((a, b) -> {
+           if(map.get(a) == map.get(b)) {
+               return a.compareTo(b);
+           }
+           return map.get(b) - map.get(a);
+        });
+
         System.out.println(list.get(0));
     }
 }
