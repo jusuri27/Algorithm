@@ -7,36 +7,36 @@ public class Main {
         int n = Integer.parseInt(sc.nextLine());
         String[] arr = new String[n];
 
-        for(int i=0; i<n; i++) {
+        for(int i=0; i<arr.length; i++) {
             arr[i] = sc.nextLine();
         }
 
-        Arrays.sort(arr, (a,b) -> {
+        Arrays.sort(arr, (a, b) -> {
             if(a.length() != b.length()) {
                 return a.length() - b.length();
             }
-
-            int sumA = getSum(a);
-            int sumB = getSum(b);
+            char[] chA = a.toCharArray();
+            char[] chB = b.toCharArray();
+            int sumA = 0;
+            int sumB = 0;
+            for(int i=0; i<chA.length; i++) {
+                if(Character.isDigit(chA[i])) {
+                    sumA += chA[i] - '0';
+                }
+            }
+            for(int i=0; i<chB.length; i++){
+                if(Character.isDigit(chB[i])) {
+                    sumB += chB[i]  - '0';
+                }
+            }
             if(sumA != sumB) {
                 return sumA - sumB;
             }
-
             return a.compareTo(b);
         });
-        for(String str : arr) {
-            System.out.println(str);
-        }
-    }
 
-    public static int getSum(String arr) {
-        int sum = 0;
-        for(int i=0; i<arr.length(); i++) {
-            int value = arr.charAt(i) - 'A';
-            if(value < 0) {
-                sum += arr.charAt(i) - '0';
-            }
+        for(String value : arr) {
+            System.out.println(value);
         }
-        return sum;
     }
 }
