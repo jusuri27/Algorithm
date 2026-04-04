@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -9,27 +8,30 @@ public class Main {
 
         for(int i=0; i<str.length(); i++) {
             int value = str.charAt(i) - 'a';
-            if(value < 0) {
-                int upperChar = str.charAt(i) - 'A';
-                alphabet[upperChar]++;
+            if(value >= 0) {
+                int lowerLetter = str.charAt(i) - 'a';
+                alphabet[lowerLetter]++;
             } else {
-                int lowerChar = str.charAt(i) - 'a';
-                alphabet[lowerChar]++;
+                int upperLetter = str.charAt(i) - 'A';
+                alphabet[upperLetter]++;
             }
         }
+
         int max = 0;
+        int maxCount = 0;
         int result = 0;
         for(int i=0; i<alphabet.length; i++) {
-            if(max <= alphabet[i]) {
-                if(max == alphabet[i]) {
-                    result = -1;
+            if(alphabet[i] >= max) {
+                if(alphabet[i] == max) {
+                    maxCount++;
                     continue;
                 }
                 max = alphabet[i];
                 result = i;
+                maxCount = 1;
             }
         }
-        if(result == -1) {
+        if(maxCount > 1) {
             System.out.println("?");
         } else {
             System.out.println((char)(result + 'A'));
