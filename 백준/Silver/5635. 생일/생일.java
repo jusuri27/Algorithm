@@ -6,12 +6,12 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int n = Integer.parseInt(sc.nextLine());
         String[][] arr = new String[n][4];
-
-        for(int i=0; i<arr.length; i++) {
-            arr[i] = sc.nextLine().split(" ");
+        for(int i=0; i<n; i++) {
+            String[] str = sc.nextLine().split(" ");
+            arr[i] = str;
         }
 
-        Arrays.sort(arr, (a,b) -> {
+        Arrays.sort(arr, (a, b) -> {
             int yearA = Integer.parseInt(a[3]);
             int yearB = Integer.parseInt(b[3]);
             int monthA = Integer.parseInt(a[2]);
@@ -19,15 +19,13 @@ public class Main {
             int dayA = Integer.parseInt(a[1]);
             int dayB = Integer.parseInt(b[1]);
 
-            if(yearA == yearB && monthA == monthB) {
-                return dayA - dayB;
+            if(yearA != yearB) {
+                return yearA - yearB;
             }
-
-            if(yearA == yearB) {
+            if(monthA != monthB) {
                 return monthA - monthB;
             }
-
-            return yearA - yearB;
+            return dayA - dayB;
         });
 
         System.out.println(arr[n-1][0]);
