@@ -1,17 +1,18 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-        int[] arr = new int[26];
-        
+        int[] alphabet = new int[26];
+
         for(int i=0; i<str.length(); i++) {
-            arr[str.charAt(i)- 'a']++;
+            alphabet[str.charAt(i) - 'a']++;
         }
         
-        for(int i : arr) {
-            System.out.printf(i + " ");
+        for(int i=0; i<alphabet.length; i++) {
+            System.out.print(alphabet[i] + " ");
         }
     }
 }
