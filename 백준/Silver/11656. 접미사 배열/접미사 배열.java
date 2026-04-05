@@ -10,11 +10,14 @@ public class Main {
         for(int i=0; i<str.length(); i++) {
             arr[i] = str.substring(i);
         }
+
         Arrays.sort(arr, (a, b) -> {
-           return a.compareTo(b);
+            return a.compareTo(b);
         });
+
         for(int i=0; i<arr.length; i++) {
             System.out.println(arr[i]);
         }
+
     }
 }
