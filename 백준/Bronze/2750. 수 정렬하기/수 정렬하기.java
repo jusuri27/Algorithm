@@ -11,7 +11,7 @@ public class Main {
             arr[i] = sc.nextInt();
         }
         Arrays.sort(arr);
-        
+
         for(int i : arr) {
             System.out.println(i);
         }
