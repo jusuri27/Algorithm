@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -6,18 +7,15 @@ public class Main {
         int a = sc.nextInt();
         int b = sc.nextInt();
         int c = sc.nextInt();
-
-        int sum = a * b * c;
-        char[] chArr = new char[10];
-        String str = String.valueOf(sum);
-
-        for(int i=0; i<str.length(); i++) {
-            chArr[str.charAt(i) - '0']++;
+        int[] arr = new int[10];
+        char[] sum = String.valueOf(a * b * c).toCharArray();
+        
+        for(int i=0; i<sum.length; i++) {
+            arr[sum[i] - '0']++;
         }
-
-        for(int i : chArr) {
+        
+        for(int i : arr) {
             System.out.println(i);
         }
-
     }
 }
