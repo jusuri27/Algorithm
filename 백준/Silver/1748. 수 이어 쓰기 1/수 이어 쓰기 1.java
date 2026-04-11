@@ -6,16 +6,16 @@ public class Main {
         int n = sc.nextInt();
 
         int answer = 0;
+        int count = 0;
         for(int i=1; i<=n; i++) {
-            int count = 1;
+            count = 1;
             int temp = i;
-            while((temp / 10) > 0) {
+            while(temp / 10 > 0) {
                 count++;
                 temp /= 10;
             }
             answer += count;
         }
-
         System.out.println(answer);
     }
 }
