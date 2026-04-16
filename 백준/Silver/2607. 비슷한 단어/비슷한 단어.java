@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -7,40 +6,32 @@ public class Main {
         int n = Integer.parseInt(sc.nextLine());
         String baseWord = sc.nextLine();
         int[] baseCount = new int[26];
-        for(int value : baseWord.toCharArray()) {
-            baseCount[value - 'A']++;
+
+        for(int i=0; i<baseWord.length(); i++) {
+            baseCount[baseWord.charAt(i) - 'A']++;
         }
 
-        int result = 0;
+        int answer = 0;
         for(int i=1; i<n; i++) {
-            String word = sc.nextLine();
-            int[] wordCount = new int[26];
-            for(int value : word.toCharArray()) {
-                wordCount[value - 'A']++;
+            String currentWord = sc.nextLine();
+            int[] currentCount = new int[26];
+            for(int j=0; j<currentWord.length(); j++) {
+                currentCount[currentWord.charAt(j) - 'A']++;
             }
+
             int diff = 0;
-            for(int j=0; j<baseCount.length; j++) {
-                diff += Math.abs(baseCount[j] - wordCount[j]);
+            for(int k=0; k<baseCount.length; k++) {
+                diff += Math.abs(baseCount[k] - currentCount[k]);
             }
+
 
             if(diff <= 1) {
-                result++;
-            } else if(diff == 2 && baseWord.length() == word.length()) {
-                result++;
+                answer++;
+            } else if(diff == 2 && baseWord.length() == currentWord.length()) {
+                answer++;
             }
         }
-        System.out.println(result);
+
+        System.out.println(answer);
     }
 }
-
-/*
-- 알파벳 개수로 비교 (A~Z 카운팅)
-- 기준 단어와 비교 단어의 문자 개수 차이 합을 구함
-- 조건
-  - 문자 차이 합이 0
-    - ABC - ABC
-  - 문자 차이 합이 1
-    - ABC - ABCA, ABC - AB
-  - 또는 2인데 길이가 같으면 → 비슷 (교체 가능)
-    - ABD - ABG
- */
