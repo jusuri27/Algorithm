@@ -5,15 +5,16 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
 
-        int current = sc.nextInt();
-        int prev = 0;
-        int sum = 0;
         int answer = 0;
+        int prev = 0;
+        int current = sc.nextInt();
+        int sum = 0;
         for(int i=1; i<n; i++) {
             prev = current;
             current = sc.nextInt();
+
             if(current > prev) {
-                sum += (current - prev);
+                sum += current - prev;
             } else {
                 answer = Math.max(answer, sum);
                 sum = 0;
