@@ -4,10 +4,12 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-        char current = str.charAt(0);
         int answer = 10;
+        char current = str.charAt(0);
+        char prev = 'a';
+
         for(int i=1; i<str.length(); i++) {
-            char prev = current;
+            prev = current;
             current = str.charAt(i);
 
             if(prev == current) {
