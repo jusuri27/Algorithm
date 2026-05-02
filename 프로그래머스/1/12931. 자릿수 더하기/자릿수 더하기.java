@@ -5,10 +5,8 @@ public class Solution {
         int answer = 0;
         String str = String.valueOf(n);
         for(int i=0; i<str.length(); i++) {
-            int value = str.charAt(i) - '0';
-            answer += value;
+            answer += str.charAt(i) - '0';
         }
-
         return answer;
     }
 }
