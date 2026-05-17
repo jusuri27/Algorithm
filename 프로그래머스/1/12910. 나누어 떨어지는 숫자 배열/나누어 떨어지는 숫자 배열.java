@@ -3,20 +3,25 @@ import java.util.*;
 class Solution {
     public int[] solution(int[] arr, int divisor) {
         List<Integer> list = new ArrayList<>();
+        int size = 0;
         
-        boolean found = false;
-        for(int i=0; i<arr.length; i++) {
-            if(arr[i] % divisor == 0) {
-                found = true;
-                list.add(arr[i]);
+        for(int i : arr) {
+            if(i % divisor == 0) {
+                list.add(i);
+                size++;
             }
         }
         
-        if(!found) {
-            list.add(-1);
+        if(size == 0) {
+            int[] answer = {-1};
+            return answer;
         }
-        list.sort(null);
-        int[] answer = list.stream().mapToInt(Integer::intValue).toArray();
+        
+        int[] answer = new int[size];
+        for(int i=0; i<list.size(); i++) {
+            answer[i] = list.get(i);
+        }
+        Arrays.sort(answer);
         return answer;
     }
 }
