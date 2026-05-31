@@ -6,11 +6,13 @@ class Solution {
         int a = sc.nextInt();
         int b = sc.nextInt();
         
-        for(int i=0; i<b; i++) {
-            for(int j=0; j<a; j++) {
+        int count = 0;
+        while(count < b) {
+            for(int i=0; i<a; i++) {
                 System.out.print("*");
             }
             System.out.println();
+            count++;
         }
 
     }
