@@ -9,14 +9,15 @@ class Solution {
                 count = 0;
             } else {
                 count++;
-                if(count % 2 == 1) {
-                    answer += Character.toUpperCase(ch);
+                if(count % 2 == 0) {
+                    ch = Character.toLowerCase(ch);
+                    answer += ch;
                 } else {
-                    answer += Character.toLowerCase(ch);;
+                    ch = Character.toUpperCase(ch);
+                    answer += ch;
                 }
             }
         }
         return answer;
     }
 }
-
